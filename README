@@ -1,4 +1,28 @@
-This is your new Play application
-=====================================
+Flight Offers Test Data Generator
+=================================
 
-This file will be packaged with your application, when using `play dist`.
+Play2 application to serve-up fake flight offer (availabilty) data for test purposes.
+/login             -- POST credentials to receive an auth header
+/fx/rate/CUR1/CUR1 -- return the FX rate between the two currencies (EUR, USD, GBP, TRY)
+/availability/AIRLINE -- get availability from specified Airline (EI, BA, UA, TK)
+
+The format of the data returned depends on the airline queried:
+UA: XML
+EI: JSON
+TK: CSV:
+  flightNumber,origin,destination,departureDate,arrivalDate,fare class1, fare class2, fare class3
+BA: COBOL 80 column punched card format:
+    DATA DIVISION.
+    FILE SECTION.
+    FD  AVAILABILITY
+    01  FLIGHT
+        05  OPERATOR              PIC X(2).
+        05  FLIGHT-NB             PIC X(5).
+        05  ORIGIN-AIRPORT        PIC X(4).
+        05  DEST-AIRPORT          PIC X(4).
+        05  DEPART-DT             PIC 9(10).
+        05  ARRIVE-DT             PIC 9(10).
+        05  FARE-CLASSES OCCURS 3 TIMES.
+            07  TICKET            PIC 999V99.
+            07  FEES              PIC 999V99.
+            07  TAXES             PIC 999V99.
